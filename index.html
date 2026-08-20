@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Planner</title>
+    <link rel="icon" type="image/png" href="study-time.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+            <div>
+                <h2>StudyMate</h2>
+                <span>Student Planner</span>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-page="dashboard">
+                <span>🏠</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-page="timetable">
+                <span>📅</span>
+                Timetable
+            </button>
+
+            <button class="nav-item" data-page="tasks">
+                <span>✅</span>
+                Tasks
+            </button>
+
+            <button class="nav-item" data-page="notes">
+                <span>📝</span>
+                Notes
+            </button>
+
+            <button class="nav-item" data-page="subjects">
+                <span>📚</span>
+                Subjects
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+    <button class="nav-item" id="darkModeBtn">
+        <span>🌙</span>
+        Dark Mode
+    </button>
+
+    <div class="creator-credit">
+        <span>Made by Students of MVN :</span><br>
+        <strong> ㅤ⚡Shubham Gupta⚡</strong><br>
+        
+    </div>
+
+</div>
+
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="currentDate"></p>
+            </div>
+
+            <div class="profile">
+                <img src="Modern_Vidya_Niketan.png" alt="MVN" width="100">
+                <div>
+                    <strong>MVNITE</strong>
+                    <small>Welcome back!</small>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section class="page active-page" id="dashboard">
+
+            <div class="welcome-card">
+
+                <div>
+                    <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+
+                    <h2>Good morning! 👋</h2>
+
+                    <p>
+                        Stay organized, keep learning and make today productive.
+                    </p>
+                </div>
+
+                <div class="welcome-emoji">
+                    📚
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">📋</div>
+                    <div>
+                        <span>Tasks Today</span>
+                        <strong id="taskCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">📅</div>
+                    <div>
+                        <span>Classes Today</span>
+                        <strong id="classCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <span>Completed</span>
+                        <strong id="completedCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">📚</div>
+                    <div>
+                        <span>Subjects</span>
+                        <strong id="subjectCount">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- TODAY'S TASKS -->
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Today's Tasks</h3>
+                            <p>Things you need to complete</p>
+                        </div>
+
+                        <button class="small-btn" onclick="showPage('tasks')">
+                            View all
+                        </button>
+                    </div>
+
+                    <div id="dashboardTasks" class="task-list">
+                    </div>
+
+                </div>
+
+
+                <!-- TODAY'S CLASSES -->
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <h3>Today's Classes</h3>
+                            <p>Your schedule</p>
+                        </div>
+
+                        <button class="small-btn" onclick="showPage('timetable')">
+                            Timetable
+                        </button>
+                    </div>
+
+                    <div id="dashboardClasses" class="schedule-list">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TIMETABLE -->
+        <section class="page" id="timetable">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Timetable</h2>
+                    <p>Organize your weekly classes.</p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal('classModal')">
+                    + Add Class
+                </button>
+
+            </div>
+
+            <div class="timetable-wrapper">
+
+                <table class="timetable">
+
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="timetableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- TASKS -->
+        <section class="page" id="tasks">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Tasks</h2>
+                    <p>Stay on top of your assignments and work.</p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal('taskModal')">
+                    + Add Task
+                </button>
+
+            </div>
+
+            <div class="filter-row">
+
+                <button class="filter active" data-filter="all">
+                    All
+                </button>
+
+                <button class="filter" data-filter="pending">
+                    Pending
+                </button>
+
+                <button class="filter" data-filter="completed">
+                    Completed
+                </button>
+
+            </div>
+
+            <div id="taskPageList" class="large-task-list">
+            </div>
+
+        </section>
+
+
+        <!-- NOTES -->
+        <section class="page" id="notes">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Notes</h2>
+                    <p>Keep your important study notes organized.</p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal('noteModal')">
+                    + New Note
+                </button>
+
+            </div>
+
+            <div id="notesGrid" class="notes-grid">
+            </div>
+
+        </section>
+
+
+        <!-- SUBJECTS -->
+        <section class="page" id="subjects">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Subjects</h2>
+                    <p>Manage all your subjects.</p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal('subjectModal')">
+                    + Add Subject
+                </button>
+
+            </div>
+
+            <div id="subjectsGrid" class="subjects-grid">
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= MODALS ================= -->
+
+
+<!-- TASK MODAL -->
+<div class="modal-overlay" id="taskModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Add New Task</h2>
+            <button onclick="closeModal('taskModal')">×</button>
+        </div>
+
+        <form id="taskForm">
+
+            <label>Task name</label>
+            <input
+                type="text"
+                id="taskTitle"
+                placeholder="e.g. Finish Physics assignment"
+                required
+            >
+
+            <label>Due date</label>
+            <input
+                type="date"
+                id="taskDate"
+                required
+            >
+
+            <label>Priority</label>
+
+            <select id="taskPriority">
+
+                <option value="low">
+                    Low
+                </option>
+
+                <option value="medium" selected>
+                    Medium
+                </option>
+
+                <option value="high">
+                    High
+                </option>
+
+            </select>
+
+            <button class="primary-btn full-btn" type="submit">
+                Add Task
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- CLASS MODAL -->
+<div class="modal-overlay" id="classModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Add Class</h2>
+            <button onclick="closeModal('classModal')">×</button>
+        </div>
+
+        <form id="classForm">
+
+            <label>Subject</label>
+
+            <input
+                type="text"
+                id="classSubject"
+                placeholder="Mathematics"
+                required
+            >
+
+            <label>Day</label>
+
+            <select id="classDay">
+
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+
+            </select>
+
+            <label>Start time</label>
+
+            <input
+                type="time"
+                id="classTime"
+                required
+            >
+
+            <label>Room</label>
+
+            <input
+                type="text"
+                id="classRoom"
+                placeholder="Room 204"
+            >
+
+            <button class="primary-btn full-btn" type="submit">
+                Add Class
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- NOTE MODAL -->
+<div class="modal-overlay" id="noteModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Create Note</h2>
+            <button onclick="closeModal('noteModal')">×</button>
+        </div>
+
+        <form id="noteForm">
+
+            <label>Title</label>
+
+            <input
+                type="text"
+                id="noteTitle"
+                placeholder="Chapter 5 - Physics"
+                required
+            >
+
+            <label>Subject</label>
+
+            <input
+                type="text"
+                id="noteSubject"
+                placeholder="Physics"
+            >
+
+            <label>Note</label>
+
+            <textarea
+                id="noteContent"
+                rows="7"
+                placeholder="Write your notes..."
+                required
+            ></textarea>
+
+            <label for="noteAttachments">Attach files</label>
+
+            <input
+                type="file"
+                id="noteAttachments"
+                multiple
+            >
+
+            <button class="primary-btn full-btn" type="submit">
+                Save Note
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SUBJECT MODAL -->
+<div class="modal-overlay" id="subjectModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+            <h2>Add Subject</h2>
+            <button onclick="closeModal('subjectModal')">×</button>
+        </div>
+
+        <form id="subjectForm">
+
+            <label>Subject name</label>
+
+            <input
+                type="text"
+                id="subjectName"
+                placeholder="Computer Science"
+                required
+            >
+
+            <label>Teacher</label>
+
+            <input
+                type="text"
+                id="subjectTeacher"
+                placeholder="Mr. Sharma"
+            >
+
+            <label>Color</label>
+
+            <input
+                type="color"
+                id="subjectColor"
+                value="#6c5ce7"
+            >
+
+            <button class="primary-btn full-btn" type="submit">
+                Add Subject
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
